@@ -1,0 +1,204 @@
+openapi: 3.0.3
+info:
+  title: ToDo Api
+  description: ToDo Api implemented in Kotlin
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8091'
+paths:
+  /users:
+    get:
+      description: Get all users
+      tags:
+        - Users
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: Returns list of users
+    post:
+      description: Create new user
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Returns created user
+  /users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      description: Get user by id
+      tags:
+        - Users
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Returns user with id = userId
+        404:
+          description: Can't find user with id = userId
+    put:
+      description: Update user by id
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Returns updated user
+        404:
+          description: Can't find user with id = userId
+    delete:
+      description: Delete user by id
+      tags:
+        - Users
+      responses:
+        204:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User has been deleted
+        404:
+          description: Can't find user with id = userId
+  /todo:
+    get:
+      description: Get all todo items of user
+      tags:
+        - Todo
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+          description: Returns list of todo items
+    post:
+      tags:
+        - Todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: Returns created todo item
+  /todo/{todoId}:
+    parameters:
+      - name: todoId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Todo
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: Returns todo with id = todoId
+        404:
+          description: Can't find todo with id = todoId
+    put:
+      tags:
+        - Todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: Returns updated todo
+        404:
+          description: Can't find todo with id = todoId
+    delete:
+      tags:
+        - Todo
+      responses:
+        204:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: Todo has been deleted
+        404:
+          description: Can't find todo with id = todoId
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: false
+        name:
+          type: string
+        surname:
+          type: string
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo'
+      required:
+        - id
+        - name
+        - surname
+        - todos
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: false
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - id
+        - title
