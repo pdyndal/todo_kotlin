@@ -89,7 +89,7 @@ paths:
           description: User has been deleted
         404:
           description: Can't find user with id = userId
-  /todo:
+  /todos:
     get:
       description: Get all todo items of user
       tags:
@@ -119,7 +119,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Todo'
           description: Returns created todo item
-  /todo/{todoId}:
+  /todos/{todoId}:
     parameters:
       - name: todoId
         in: path

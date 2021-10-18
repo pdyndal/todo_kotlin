@@ -11,12 +11,28 @@ import java.util.*
 @RestController
 class UserResource {
 
-    @GetMapping
+    @GetMapping()
     fun findUsers(): ResponseEntity<List<User>> {
-        return ResponseEntity(
-            listOf(User(UUID.randomUUID(), "Karol", "Nowak",
-                listOf(Todo(UUID.randomUUID(), "Test")))),
-            HttpStatus.OK
-        )
+        throw NotImplementedError()
+    }
+
+    @PostMapping()
+    fun newUser(@RequestBody user: User): ResponseEntity<User> {
+        throw NotImplementedError()
+    }
+
+    @GetMapping("/{userId}")
+    fun getUser(@PathVariable userId: UUID): ResponseEntity<User> {
+        throw NotImplementedError()
+    }
+
+    @PutMapping("/{userId}")
+    fun updateUser(@PathVariable userId: UUID, @RequestBody user: User): ResponseEntity<User> {
+        throw NotImplementedError()
+    }
+
+    @DeleteMapping("/{userId}")
+    fun deleteUser(@PathVariable userId: UUID): ResponseEntity<User> {
+        throw NotImplementedError()
     }
 }
