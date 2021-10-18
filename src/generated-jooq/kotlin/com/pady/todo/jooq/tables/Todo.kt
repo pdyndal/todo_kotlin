@@ -5,8 +5,8 @@ package com.pady.todo.jooq.tables
 
 
 import com.pady.todo.jooq.DefaultSchema
-import com.pady.todo.jooq.keys.ADDRESS_T_ID_PK
-import com.pady.todo.jooq.keys.ADDRESS_U_ID_FK
+import com.pady.todo.jooq.keys.TODO_T_ID_PK
+import com.pady.todo.jooq.keys.TODO_U_ID_FK
 import com.pady.todo.jooq.tables.records.TodoRecord
 
 import kotlin.collections.List
@@ -102,13 +102,13 @@ open class Todo(
     constructor(child: Table<out Record>, key: ForeignKey<out Record, TodoRecord>): this(Internal.createPathAlias(child, key), child, key, TODO, null)
     override fun getSchema(): Schema? = if (aliased()) null else DefaultSchema.DEFAULT_SCHEMA
     override fun getIdentity(): Identity<TodoRecord, ByteArray?> = super.getIdentity() as Identity<TodoRecord, ByteArray?>
-    override fun getPrimaryKey(): UniqueKey<TodoRecord> = ADDRESS_T_ID_PK
-    override fun getReferences(): List<ForeignKey<TodoRecord, *>> = listOf(ADDRESS_U_ID_FK)
+    override fun getPrimaryKey(): UniqueKey<TodoRecord> = TODO_T_ID_PK
+    override fun getReferences(): List<ForeignKey<TodoRecord, *>> = listOf(TODO_U_ID_FK)
 
     private lateinit var _user: User
     fun user(): User {
         if (!this::_user.isInitialized)
-            _user = User(this, ADDRESS_U_ID_FK)
+            _user = User(this, TODO_U_ID_FK)
 
         return _user;
     }

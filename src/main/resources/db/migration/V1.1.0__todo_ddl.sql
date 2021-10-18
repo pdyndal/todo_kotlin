@@ -6,6 +6,6 @@ create table todo
     u_id binary(16) not null,
     title varchar not null,
     content varchar,
-    constraint address_t_id_pk primary key (t_id),
-    constraint address_u_id_fk foreign key (u_id) references user (u_id) on delete cascade
+    constraint todo_t_id_pk primary key (t_id),
+    constraint todo_u_id_fk foreign key (u_id) references user (u_id) on delete cascade
 );

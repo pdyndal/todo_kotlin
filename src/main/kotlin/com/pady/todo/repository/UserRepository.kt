@@ -6,8 +6,10 @@ import com.pady.todo.jooq.tables.records.UserRecord
 import com.pady.todo.jooq.tables.references.USER
 import com.pady.todo.jooq.tables.references.TODO
 import org.jooq.DSLContext
+import org.springframework.stereotype.Repository
 import java.util.*
 
+@Repository
 class UserRepository(private val dslContext: DSLContext) {
 
     fun existById(userId: UUID): Boolean =
@@ -39,7 +41,7 @@ class UserRepository(private val dslContext: DSLContext) {
         dslContext.batch(queries).execute()
     }
 
-    fun deleteAllTodosByIdNotIn(ids: List<UUID>) {
+    fun deleteAllTodosByIdNotIn(ids: List<ByteArray>) {
         dslContext.deleteFrom(TODO).where(TODO.T_ID.notIn(ids)).execute()
     }
 

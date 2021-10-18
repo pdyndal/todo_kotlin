@@ -6,6 +6,7 @@ plugins {
     id("nu.studer.jooq") version "6.0"
     kotlin("jvm") version "1.5.31"
     kotlin("plugin.spring") version "1.5.31"
+    kotlin("kapt") version "1.5.21"
 }
 
 group = "com.pady"
@@ -28,6 +29,9 @@ dependencies {
     testImplementation("io.rest-assured:kotlin-extensions:4.4.0")
     testImplementation("com.atlassian.oai:swagger-request-validator-restassured:2.20.0")
     jooqGenerator("org.jooq:jooq-meta-extensions:3.15.2")
+
+    implementation("org.mapstruct:mapstruct:1.4.2.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
 }
 
 tasks.withType<KotlinCompile> {
