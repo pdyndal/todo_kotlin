@@ -1,4 +1,8 @@
 package com.pady.todo.service
 
-class UserService {
+import com.pady.todo.repository.UserRepository
+
+class UserService(
+    private val userRepository: UserRepository
+) {
 }
