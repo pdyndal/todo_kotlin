@@ -35,7 +35,7 @@ class UserService(
         var userRecord: UserRecord = userMapper.toUserRecord(user)
         userRecord = userRepository.upsert(userRecord)
 
-        var todosRecords = userMapper.toTodosRecords(user.todos)
+        var todosRecords = userMapper.toTodoRecords(user.todos)
         todosRecords.mapNotNull { it.tId }.let { userRepository.deleteAllTodosByIdNotIn(it) }
 
         todosRecords.forEach { it.uId = userRecord.uId }

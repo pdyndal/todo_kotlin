@@ -21,7 +21,7 @@ interface UserMapper {
     fun toTodo(todoRecord: TodoRecord): Todo
 
     @InheritInverseConfiguration
-    fun toTodosRecord(todo: Todo): TodoRecord
+    fun toTodoRecord(todo: Todo): TodoRecord
 
-    fun toTodosRecords(todos: List<Todo>): List<TodoRecord>
+    fun toTodoRecords(todos: List<Todo>): List<TodoRecord>
 }
