@@ -9,10 +9,10 @@ import java.util.*
 
 @Repository
 class TodoRepository(private val dslContext: DSLContext) {
-    fun existById(todoId: UUID): Boolean =
-        dslContext.fetchExists(dslContext.selectFrom(TODO).where(TODO.T_ID.eq(todoId.asBytes())))
+    fun existById(todoId: Long): Boolean =
+        dslContext.fetchExists(dslContext.selectFrom(TODO).where(TODO.T_ID.eq(todoId)))
 
-    fun getById(todoId: UUID): TodoRecord = dslContext.selectFrom(TODO).where(TODO.T_ID.eq(todoId.asBytes())).fetchSingle()
+    fun getById(todoId: Long): TodoRecord = dslContext.selectFrom(TODO).where(TODO.T_ID.eq(todoId)).fetchSingle()
 
     fun findAll(): List<TodoRecord> = dslContext.selectFrom(TODO).fetch()
 
@@ -38,9 +38,9 @@ class TodoRepository(private val dslContext: DSLContext) {
         dslContext.batch(queries).execute()
     }
 
-    fun deleteAllTodosByIdNotIn(ids: List<ByteArray>) {
+    fun deleteAllTodosByIdNotIn(ids: List<Long>) {
         dslContext.deleteFrom(TODO).where(TODO.T_ID.notIn(ids)).execute()
     }
 
-    fun deleteById(id: UUID) = dslContext.delete(TODO).where(TODO.T_ID.eq(id.asBytes())).execute()
+    fun deleteById(id: Long) = dslContext.delete(TODO).where(TODO.T_ID.eq(id)).execute()
 }

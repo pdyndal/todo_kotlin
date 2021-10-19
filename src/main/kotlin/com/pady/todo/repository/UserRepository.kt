@@ -12,10 +12,10 @@ import java.util.*
 @Repository
 class UserRepository(private val dslContext: DSLContext) {
 
-    fun existById(userId: UUID): Boolean =
-        dslContext.fetchExists(dslContext.selectFrom(USER).where(USER.U_ID.eq(userId.asBytes())))
+    fun existById(userId: Long): Boolean =
+        dslContext.fetchExists(dslContext.selectFrom(USER).where(USER.U_ID.eq(userId)))
 
-    fun getById(userId: UUID): UserRecord = dslContext.selectFrom(USER).where(USER.U_ID.eq(userId.asBytes())).fetchSingle()
+    fun getById(userId: Long): UserRecord = dslContext.selectFrom(USER).where(USER.U_ID.eq(userId)).fetchSingle()
 
     fun findAll(): List<UserRecord> = dslContext.selectFrom(USER).fetch()
 
@@ -41,9 +41,9 @@ class UserRepository(private val dslContext: DSLContext) {
         dslContext.batch(queries).execute()
     }
 
-    fun deleteAllTodosByIdNotIn(ids: List<ByteArray>) {
+    fun deleteAllTodosByIdNotIn(ids: List<Long>) {
         dslContext.deleteFrom(TODO).where(TODO.T_ID.notIn(ids)).execute()
     }
 
-    fun deleteById(id: UUID) = dslContext.delete(TODO).where(TODO.T_ID.eq(id.asBytes())).execute()
+    fun deleteById(id: Long) = dslContext.delete(TODO).where(TODO.T_ID.eq(id)).execute()
 }

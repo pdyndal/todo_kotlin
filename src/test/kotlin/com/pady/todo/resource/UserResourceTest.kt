@@ -65,8 +65,8 @@ internal class UserResourceTest {
         } Then {
             statusCode(201)
         } Extract {
-            val todos = listOf(bodyUser.todos[0].copy())
-            val expectedUser = bodyUser.copy(todos = todos)
+            val todos = listOf(bodyUser.todos[0].copy(id = 1))
+            val expectedUser = bodyUser.copy(id = 1, todos = todos)
 
             val responseUser = body().`as`(User::class.java)
             assertEquals(expectedUser, responseUser)
@@ -126,8 +126,8 @@ internal class UserResourceTest {
         } Then {
             statusCode(200)
         } Extract {
-            val todos = listOf(bodyUser.todos[0].copy())
-            val expectedUser = bodyUser.copy(todos = todos)
+            val todos = listOf(bodyUser.todos[0].copy(id = 2))
+            val expectedUser = bodyUser.copy(id = 1, todos = todos)
 
             val responseUser = body().`as`(User::class.java)
             assertEquals(expectedUser, responseUser)
@@ -145,7 +145,7 @@ internal class UserResourceTest {
             spec(defaultSpec)
             body(bodyUser)
         } When {
-            put("/{userId}", UUID.randomUUID())
+            put("/{userId}", 123456)
         } Then {
             statusCode(404)
         }
@@ -191,7 +191,7 @@ internal class UserResourceTest {
         Given {
             spec(defaultSpec)
         } When {
-            delete("/{userId}", UUID.randomUUID())
+            delete("/{userId}", 123456)
         } Then {
             statusCode(204)
         }
@@ -216,7 +216,7 @@ internal class UserResourceTest {
         Given {
             spec(defaultSpec)
         } When {
-            get("/{userId}", UUID.randomUUID())
+            get("/{userId}", 123456)
         } Then {
             statusCode(404)
         }

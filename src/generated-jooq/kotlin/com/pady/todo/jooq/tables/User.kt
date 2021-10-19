@@ -61,7 +61,7 @@ open class User(
     /**
      * The column <code>USER.U_ID</code>.
      */
-    val U_ID: TableField<UserRecord, ByteArray?> = createField(DSL.name("U_ID"), SQLDataType.VARBINARY.nullable(false).identity(true), this, "")
+    val U_ID: TableField<UserRecord, Long?> = createField(DSL.name("U_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "")
 
     /**
      * The column <code>USER.NAME</code>.
@@ -93,7 +93,7 @@ open class User(
 
     constructor(child: Table<out Record>, key: ForeignKey<out Record, UserRecord>): this(Internal.createPathAlias(child, key), child, key, USER, null)
     override fun getSchema(): Schema? = if (aliased()) null else DefaultSchema.DEFAULT_SCHEMA
-    override fun getIdentity(): Identity<UserRecord, ByteArray?> = super.getIdentity() as Identity<UserRecord, ByteArray?>
+    override fun getIdentity(): Identity<UserRecord, Long?> = super.getIdentity() as Identity<UserRecord, Long?>
     override fun getPrimaryKey(): UniqueKey<UserRecord> = USER_U_ID_PK
     override fun `as`(alias: String): User = User(DSL.name(alias), this)
     override fun `as`(alias: Name): User = User(alias, this)
@@ -111,5 +111,5 @@ open class User(
     // -------------------------------------------------------------------------
     // Row3 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row3<ByteArray?, String?, String?> = super.fieldsRow() as Row3<ByteArray?, String?, String?>
+    override fun fieldsRow(): Row3<Long?, String?, String?> = super.fieldsRow() as Row3<Long?, String?, String?>
 }

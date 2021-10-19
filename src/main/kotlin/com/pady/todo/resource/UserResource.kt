@@ -20,13 +20,13 @@ class UserResource(private val userService: UserService) {
         ResponseEntity(userService.save(user), HttpStatus.CREATED)
 
     @GetMapping("/{userId}")
-    fun getUser(@PathVariable userId: UUID): ResponseEntity<User> =
+    fun getUser(@PathVariable userId: Long): ResponseEntity<User> =
         userService.getById(userId)
             ?.let { ResponseEntity(it, HttpStatus.OK) }
             ?: ResponseEntity(HttpStatus.NOT_FOUND)
 
     @PutMapping("/{userId}")
-    fun updateUser(@PathVariable userId: UUID, @RequestBody user: User): ResponseEntity<User> =
+    fun updateUser(@PathVariable userId: Long, @RequestBody user: User): ResponseEntity<User> =
         if (userService.existsById(userId))
             ResponseEntity(
                 userService.save(user.copy(id = userId)),
@@ -34,7 +34,7 @@ class UserResource(private val userService: UserService) {
             ) else ResponseEntity(HttpStatus.NOT_FOUND)
 
     @DeleteMapping("/{userId}")
-    fun deleteUser(@PathVariable userId: UUID): ResponseEntity<User> =
+    fun deleteUser(@PathVariable userId: Long): ResponseEntity<User> =
         if (userService.existsById(userId)) {
             userService.delete(userId)
             ResponseEntity(HttpStatus.NO_CONTENT)

@@ -16,9 +16,9 @@ class TodoService(
 ) {
     private val userMapper: UserMapper = Mappers.getMapper(UserMapper::class.java)
 
-    fun existsById(todoId: UUID): Boolean = todoRepository.existById(todoId)
+    fun existsById(todoId: Long): Boolean = todoRepository.existById(todoId)
 
-    fun getById(todoId: UUID): Todo? = todoRepository.getById(todoId)?.let {
+    fun getById(todoId: Long): Todo? = todoRepository.getById(todoId)?.let {
         userMapper.toTodo(it)
     }
 
@@ -35,5 +35,5 @@ class TodoService(
         return userMapper.toTodo(todoRecord)
     }
 
-    fun delete(userId: UUID) = todoRepository.deleteById(userId)
+    fun delete(userId: Long) = todoRepository.deleteById(userId)
 }

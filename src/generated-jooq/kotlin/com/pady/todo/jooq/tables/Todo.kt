@@ -64,12 +64,12 @@ open class Todo(
     /**
      * The column <code>TODO.T_ID</code>.
      */
-    val T_ID: TableField<TodoRecord, ByteArray?> = createField(DSL.name("T_ID"), SQLDataType.VARBINARY.nullable(false).identity(true), this, "")
+    val T_ID: TableField<TodoRecord, Long?> = createField(DSL.name("T_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "")
 
     /**
      * The column <code>TODO.U_ID</code>.
      */
-    val U_ID: TableField<TodoRecord, ByteArray?> = createField(DSL.name("U_ID"), SQLDataType.VARBINARY.nullable(false), this, "")
+    val U_ID: TableField<TodoRecord, Long?> = createField(DSL.name("U_ID"), SQLDataType.BIGINT.nullable(false), this, "")
 
     /**
      * The column <code>TODO.TITLE</code>.
@@ -101,7 +101,7 @@ open class Todo(
 
     constructor(child: Table<out Record>, key: ForeignKey<out Record, TodoRecord>): this(Internal.createPathAlias(child, key), child, key, TODO, null)
     override fun getSchema(): Schema? = if (aliased()) null else DefaultSchema.DEFAULT_SCHEMA
-    override fun getIdentity(): Identity<TodoRecord, ByteArray?> = super.getIdentity() as Identity<TodoRecord, ByteArray?>
+    override fun getIdentity(): Identity<TodoRecord, Long?> = super.getIdentity() as Identity<TodoRecord, Long?>
     override fun getPrimaryKey(): UniqueKey<TodoRecord> = TODO_T_ID_PK
     override fun getReferences(): List<ForeignKey<TodoRecord, *>> = listOf(TODO_U_ID_FK)
 
@@ -128,5 +128,5 @@ open class Todo(
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row4<ByteArray?, ByteArray?, String?, String?> = super.fieldsRow() as Row4<ByteArray?, ByteArray?, String?, String?>
+    override fun fieldsRow(): Row4<Long?, Long?, String?, String?> = super.fieldsRow() as Row4<Long?, Long?, String?, String?>
 }

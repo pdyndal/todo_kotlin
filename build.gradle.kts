@@ -20,6 +20,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jooq:2.5.5")
     implementation("org.springframework.boot:spring-boot-starter-web:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
     implementation("org.flywaydb:flyway-core:8.0.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -28,7 +29,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.5")
     testImplementation("io.rest-assured:kotlin-extensions:4.4.0")
     testImplementation("com.atlassian.oai:swagger-request-validator-restassured:2.20.0")
+
     jooqGenerator("org.jooq:jooq-meta-extensions:3.15.2")
+    jooqGenerator("com.h2database:h2")
 
     implementation("org.mapstruct:mapstruct:1.4.2.Final")
     kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")

@@ -20,13 +20,13 @@ class TodoResource(private val todoService: TodoService) {
         ResponseEntity(todoService.save(todo), HttpStatus.CREATED)
 
     @GetMapping("/{todoId}")
-    fun getTodo(@PathVariable todoId: UUID): ResponseEntity<Todo> =
+    fun getTodo(@PathVariable todoId: Long): ResponseEntity<Todo> =
         todoService.getById(todoId)
             ?.let { ResponseEntity(it, HttpStatus.OK) }
             ?: ResponseEntity(HttpStatus.NOT_FOUND)
 
     @PutMapping("/{todoId}")
-    fun updateTodo(@PathVariable todoId: UUID, @RequestBody todo: Todo): ResponseEntity<Todo> =
+    fun updateTodo(@PathVariable todoId: Long, @RequestBody todo: Todo): ResponseEntity<Todo> =
         if (todoService.existsById(todoId))
             ResponseEntity(
                 todoService.save(todo.copy(id = todoId)),
@@ -34,7 +34,7 @@ class TodoResource(private val todoService: TodoService) {
             ) else ResponseEntity(HttpStatus.NOT_FOUND)
 
     @DeleteMapping("/{todoId}")
-    fun deleteTodo(@PathVariable todoId: UUID): ResponseEntity<Todo> =
+    fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Todo> =
         if (todoService.existsById(todoId)) {
             todoService.delete(todoId)
             ResponseEntity(HttpStatus.NO_CONTENT)

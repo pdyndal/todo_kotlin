@@ -2,8 +2,8 @@
 drop table if exists todo;
 create table todo
 (
-    t_id binary(16) auto_increment,
-    u_id binary(16) not null,
+    t_id bigint auto_increment,
+    u_id bigint not null,
     title varchar not null,
     content varchar,
     constraint todo_t_id_pk primary key (t_id),

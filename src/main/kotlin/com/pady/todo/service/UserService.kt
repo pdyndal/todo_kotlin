@@ -17,9 +17,9 @@ class UserService(
 ) {
     private val userMapper: UserMapper = Mappers.getMapper(UserMapper::class.java)
 
-    fun existsById(userId: UUID): Boolean = userRepository.existById(userId)
+    fun existsById(userId: Long): Boolean = userRepository.existById(userId)
 
-    fun getById(userId: UUID): User? = userRepository.getById(userId)?.let {
+    fun getById(userId: Long): User? = userRepository.getById(userId)?.let {
         val todos = it.fetchChildren(TODO_U_ID_FK)
         userMapper.toUser(it, todos)
     }
@@ -45,5 +45,5 @@ class UserService(
         return userMapper.toUser(userRecord, todosRecords)
     }
 
-    fun delete(userId: UUID) = userRepository.deleteById(userId)
+    fun delete(userId: Long) = userRepository.deleteById(userId)
 }

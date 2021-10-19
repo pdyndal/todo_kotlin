@@ -63,7 +63,7 @@ internal class TodoResourceTest {
         } Then {
             statusCode(201)
         } Extract {
-            val expectedTodo = bodyTodo.copy()
+            val expectedTodo = bodyTodo.copy(id = 1)
 
             val responseTodo = body().`as`(Todo::class.java)
             assertEquals(expectedTodo, responseTodo)
@@ -113,7 +113,7 @@ internal class TodoResourceTest {
         Assumptions.assumeTrue(currentTodo != null)
         Assumptions.assumeTrue(currentTodo?.id != null)
 
-        val bodyTodo = currentTodo!!.copy( currentTodo?.id, "Test 2", "Test content")
+        val bodyTodo = currentTodo!!.copy( id = 1, "Test 2", "Test content")
 
         Given {
             spec(defaultSpec)
@@ -123,7 +123,7 @@ internal class TodoResourceTest {
         } Then {
             statusCode(200)
         } Extract {
-            val expectedTodo = bodyTodo.copy()
+            val expectedTodo = bodyTodo.copy(id = 1)
 
             val responseTodo = body().`as`(Todo::class.java)
             assertEquals(expectedTodo, responseTodo)
@@ -141,7 +141,7 @@ internal class TodoResourceTest {
             spec(defaultSpec)
             body(bodyUser)
         } When {
-            put("/{todoId}", UUID.randomUUID())
+            put("/{todoId}", 123456)
         } Then {
             statusCode(404)
         }
@@ -187,7 +187,7 @@ internal class TodoResourceTest {
         Given {
             spec(defaultSpec)
         } When {
-            delete("/{todoId}", UUID.randomUUID())
+            delete("/{todoId}", 123456)
         } Then {
             statusCode(204)
         }
@@ -212,7 +212,7 @@ internal class TodoResourceTest {
         Given {
             spec(defaultSpec)
         } When {
-            get("/{todoId}", UUID.randomUUID())
+            get("/{todoId}", 123456)
         } Then {
             statusCode(404)
         }
